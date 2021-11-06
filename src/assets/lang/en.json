@@ -1,0 +1,16 @@
+{
+  "sign-up": "Registration",
+  "sign-in": "Authorization",
+  "welcome": "Welcome",
+  "enter_email": "Enter email address",
+  "enter_password": "Enter password",
+  "enter_name": "Enter name",
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Password",
+  "enter_to_cabinet": "Enter to cabinet",
+  "validation_error_required": "Field required",
+  "validation_error_email": "Enter correct email address",
+  "validation_error_password": "Password must be 8 to 16 characters long",
+  "validation_error_confirm_password": "Passwords must match"
+}

@@ -1,0 +1,19 @@
+html {
+    -webkit-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+}
+
+html body {
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-y: auto !important;
+    width: 100% !important;
+}
+
+#root {
+    display: flex;
+    min-height: 100vh;
+}

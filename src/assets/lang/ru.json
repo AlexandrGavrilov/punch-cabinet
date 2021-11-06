@@ -1,0 +1,17 @@
+{
+  "sign-up": "Регистрация",
+  "sign-in": "Авторизация",
+  "welcome": "Добро пожаловать",
+  "enter_email": "Введите электронную почту",
+  "enter_password": "Введите пароль",
+  "enter_name": "Введите имя",
+  "email": "Email",
+  "password": "Пароль",
+  "confirm_password": "Подтвердите пароль",
+  "enter_to_cabinet": "Войти в кабинет",
+  "validation_error_required": "Поле обязательное",
+  "validation_error_email": "Введите корректную электронную почту",
+  "validation_error_password": "Пароль должен содержать от 8 до 16 символов",
+  "validation_error_confirm_password": "Пароли должны совпадать"
+
+}
