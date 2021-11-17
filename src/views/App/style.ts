@@ -17,32 +17,3 @@ export const SMenu = styled(Menu)`
   background: rgba(0, 0, 0, 0);
   font-size: 18px;
 `;
-
-export const SAuthElement = styled(motion.button)`
-  line-height: 1.5715;
-  font-size: 18px;
-  background: #7373ff;
-  width: 75px;
-  height: 40px;
-  border-radius: 4px;
-`;
-
-export const SAuthWrapper = styled(motion.div)`
-  display: flex;
-`;
-
-export const SSelectedAuth = styled(motion.div)`
-  position: absolute;
-  background: #7373ff;
-  width: 350px;
-  height: 600px;
-`;
-
-export const SBackground = styled(motion.div)`
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.3);
-  top: 0;
-  left: 0;
-`;

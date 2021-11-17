@@ -1,22 +1,36 @@
 import React, { FC } from 'react';
-import { Form } from 'antd';
+import { Button, Form } from 'antd';
+import { motion } from 'framer-motion';
 
 import { useTranslation } from 'shared/utils/translation';
 
-import { Container } from '../shared/components/Container';
-import { SButton, SInput } from '../shared/style';
+import { useAuthStore } from 'stores/auth';
+
+import { SButton, SInput, SGetCodeButton } from '../shared/style';
 
 import { SForm } from './style';
 import { ISignUpProps } from './types';
+import { authFormItemVariants } from '../shared/animations';
 
 const PureSignUp: FC<ISignUpProps> = () => {
   const [form] = Form.useForm();
 
   const { t } = useTranslation();
+
+  const { register, verify } = useAuthStore();
+  const handleSubmit = (form: any) => {
+    register(form);
+  };
+
+  const handleVerify = () => {
+    const email = form.getFieldValue('email');
+    verify(email);
+  };
+
   return (
-    <Container>
-      <Form layout="vertical" form={form}>
-        <SForm>
+    <Form layout="vertical" form={form} onFinish={handleSubmit}>
+      <SForm>
+        <motion.div variants={authFormItemVariants}>
           <Form.Item
             rules={[
               {
@@ -33,6 +47,9 @@ const PureSignUp: FC<ISignUpProps> = () => {
           >
             <SInput placeholder={t('email')} />
           </Form.Item>
+        </motion.div>
+
+        <motion.div variants={authFormItemVariants}>
           <Form.Item
             rules={[
               {
@@ -47,8 +64,21 @@ const PureSignUp: FC<ISignUpProps> = () => {
             label={t('enter_email')}
             name="email"
           >
-            <SInput placeholder={t('email')} />
+            <SInput
+              placeholder={t('email')}
+              suffix={(
+                <SGetCodeButton
+                  type="primary"
+                  onClick={handleVerify}
+                >
+                  {t('get_code')}
+                </SGetCodeButton>
+)}
+            />
           </Form.Item>
+        </motion.div>
+
+        <motion.div variants={authFormItemVariants}>
           <Form.Item
             rules={[
               {
@@ -66,6 +96,9 @@ const PureSignUp: FC<ISignUpProps> = () => {
           >
             <SInput type="password" placeholder={t('password')} />
           </Form.Item>
+        </motion.div>
+
+        <motion.div variants={authFormItemVariants}>
           <Form.Item
             rules={[
               {
@@ -92,12 +125,15 @@ const PureSignUp: FC<ISignUpProps> = () => {
           >
             <SInput type="password" placeholder={t('password')} />
           </Form.Item>
+        </motion.div>
+
+        <motion.div variants={authFormItemVariants}>
           <Form.Item>
             <SButton htmlType="submit">{t('enter_to_cabinet')}</SButton>
           </Form.Item>
-        </SForm>
-      </Form>
-    </Container>
+        </motion.div>
+      </SForm>
+    </Form>
   );
 };
 
