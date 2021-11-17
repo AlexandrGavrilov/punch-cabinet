@@ -33,6 +33,7 @@ export const App: FC<IRouteComponentProps> = ({
 
             <Route {...restDefaultModule} path={`${prefix}${defaultModule.path}`}>
               <Suspense fallback={<Spin />}>
+                <Header />
                 <DefaultModule {...restDefaultModule} />
               </Suspense>
             </Route>
