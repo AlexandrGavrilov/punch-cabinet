@@ -1,6 +1,6 @@
 export const AppView = 'app';
 
 export enum AppModules {
-  LADING = 'landing',
+  LADING = 'main',
   ROAD_MAP = 'roadmap',
 }

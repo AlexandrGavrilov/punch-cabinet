@@ -1,30 +1,51 @@
-import React, { FC } from 'react';
-import { Button, Form } from 'antd';
+import React, { FC, useEffect, useState } from 'react';
+import { Form } from 'antd';
+
 import { motion } from 'framer-motion';
 
 import { useTranslation } from 'shared/utils/translation';
 
 import { useAuthStore } from 'stores/auth';
 
-import { SButton, SInput, SGetCodeButton } from '../shared/style';
+import {
+  SButton, SInput, SSuffixButton,
+} from '../shared/style';
 
 import { SForm } from './style';
 import { ISignUpProps } from './types';
 import { authFormItemVariants } from '../shared/animations';
+import { PhoneNumberInput } from './PhoneNumberInput';
 
 const PureSignUp: FC<ISignUpProps> = () => {
+  const [registrationVariant, setRegistrationVariant] = useState<'email' | 'phone'>('email');
   const [form] = Form.useForm();
 
   const { t } = useTranslation();
 
-  const { register, verify } = useAuthStore();
+  const {
+    register, verify, verifyConfirm, isVerified, isCodeSent,
+  } = useAuthStore();
   const handleSubmit = (form: any) => {
     register(form);
   };
 
-  const handleVerify = () => {
+  const handleChangeRegistrationVariant = (variant: 'email' | 'phone') => () => {
+    setRegistrationVariant(variant);
+  };
+
+  const handleVerify = async () => {
     const email = form.getFieldValue('email');
     verify(email);
+  };
+
+  useEffect(() => () => {
+    useAuthStore.setState({ isCodeSent: false });
+  }, []);
+
+  const handleVerifyConfirm = () => {
+    const code = form.getFieldValue('verify');
+    const email = form.getFieldValue('email');
+    verifyConfirm(code, email);
   };
 
   return (
@@ -36,10 +57,6 @@ const PureSignUp: FC<ISignUpProps> = () => {
               {
                 required: true,
                 message: t('validation_error_required'),
-              },
-              {
-                type: 'email',
-                message: t('validation_error_email'),
               },
             ]}
             label={t('enter_name')}
@@ -61,19 +78,72 @@ const PureSignUp: FC<ISignUpProps> = () => {
                 message: t('validation_error_email'),
               },
             ]}
-            label={t('enter_email')}
-            name="email"
+            label={(t('enter_email')
+              // <SRegistrationSelection>
+              //   <SLabelButton
+              //     isActive={registrationVariant === 'email'}
+              //     onClick={handleChangeRegistrationVariant('email')}
+              //   >
+              //     {t('enter_email')}
+              //   </SLabelButton>
+              //   <SOr>
+              //     -
+              //     {`  ${t('or')}  `}
+              //     -
+              //   </SOr>
+              //   <SLabelButton
+              //     isActive={registrationVariant === 'phone'}
+              //     onClick={handleChangeRegistrationVariant('phone')}
+              //   >
+              //     {t('enter_phone')}
+              //   </SLabelButton>
+              // </SRegistrationSelection>
+            )}
+            name={registrationVariant}
+          >
+            {registrationVariant === 'email' ? (
+              <SInput
+                placeholder={t('email')}
+                suffix={(
+                  <SSuffixButton
+                    disabled={isCodeSent}
+                    type="primary"
+                    onClick={handleVerify}
+                  >
+                    {t('get_code')}
+                  </SSuffixButton>
+              )}
+              />
+            ) : <PhoneNumberInput />}
+          </Form.Item>
+        </motion.div>
+        <motion.div variants={authFormItemVariants}>
+          <Form.Item
+            label={t('enter_code')}
+            name="verify"
+            rules={[{
+              min: 9,
+              max: 9,
+              message: t('validation_error_confirmation_code'),
+            },
+            {
+              required: true,
+              message: t('validation_error_required'),
+            }]}
           >
             <SInput
-              placeholder={t('email')}
+              disabled={isVerified || !isCodeSent}
               suffix={(
-                <SGetCodeButton
+                <SSuffixButton
+                  disabled={isVerified || !isCodeSent}
                   type="primary"
-                  onClick={handleVerify}
+                  onClick={handleVerifyConfirm}
                 >
-                  {t('get_code')}
-                </SGetCodeButton>
-)}
+                  {t('verify_code')}
+                </SSuffixButton>
+                )}
+              type="number"
+              placeholder={t('verify_code')}
             />
           </Form.Item>
         </motion.div>
@@ -129,7 +199,7 @@ const PureSignUp: FC<ISignUpProps> = () => {
 
         <motion.div variants={authFormItemVariants}>
           <Form.Item>
-            <SButton htmlType="submit">{t('enter_to_cabinet')}</SButton>
+            <SButton htmlType="submit">{t('apply_registration')}</SButton>
           </Form.Item>
         </motion.div>
       </SForm>

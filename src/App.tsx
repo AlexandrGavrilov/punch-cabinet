@@ -23,7 +23,6 @@ function App() {
             </Route>
           </Switch>
         </BrowserRouter>
-        <header className="App-header" />
       </I18nextProvider>
     </>
   );

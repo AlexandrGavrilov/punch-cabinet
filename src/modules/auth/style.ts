@@ -1,16 +1,41 @@
 import styled, { css } from 'styled-components';
 import { motion } from 'framer-motion';
 import { Button } from 'antd';
+import { applyMedia } from 'utils/media';
+
+const btnStyles = css`
+  background: #ff6767;
+  border: 1px solid #ff6767;
+`;
 
 export const SAuthElement = styled(Button)`
   transition: all 0.3s ease;
   margin: 0 15px;
   line-height: 1.5715;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  
+  ${btnStyles};
+  &:hover {
+    ${btnStyles};
+  }
+  &:focus {
+    ${btnStyles};
+  }
+  ${applyMedia('tablet', css`
+    font-size: 12px;
+    
+    height: 24px;
+  `)}
 `;
 
 export const SAuthWrapper = styled(motion.div)`
   display: flex;
+  
+  * {
+    overflow: hidden;
+  }
 `;
 
 export const SSelectedAuth = styled(motion.div)`
@@ -21,7 +46,20 @@ export const SSelectedAuth = styled(motion.div)`
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  background: #7373ff;
+  background: #dbc0c0;
+`;
+
+export const SClose = styled(motion.button)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+  img {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const SBackground = styled(motion.div)`

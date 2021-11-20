@@ -1,10 +1,12 @@
-import { motion, AnimatePresence, useAnimation } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import React, { useState } from 'react';
+import { CloseOutlined } from '@ant-design/icons';
 
 import { useTranslation } from 'shared/utils/translation';
+import closeIconSrc from 'assets/img/close-icon.png';
 
 import {
-  SAuthElement, SAuthWrapper, SBackground, SSelectedAuth,
+  SAuthElement, SAuthWrapper, SBackground, SSelectedAuth, SClose,
 } from './style';
 import { SignUp } from './signUp';
 import { SignIn } from './signIn';
@@ -17,6 +19,9 @@ export const Auth = () => {
     setSelectedAuth(selectedAuth);
   };
 
+  const handleClose = () => {
+    setSelectedAuth(null);
+  };
   const item = {
     hidden: { opacity: 0, transition: { duration: 0 } },
     show: { opacity: 1, transition: { duration: 0.2 } },
@@ -50,7 +55,16 @@ export const Auth = () => {
         {t('login')}
       </SAuthElement>
       <AnimatePresence>
-        {selectedAuth && <SBackground initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} layout onClick={() => setSelectedAuth(null)} />}
+        {selectedAuth && (
+        <SBackground
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          layout
+          onClick={handleClose}
+        />
+        )}
       </AnimatePresence>
       <AnimatePresence>
         {selectedAuth && (
@@ -61,6 +75,14 @@ export const Auth = () => {
           exit="hidden"
           variants={selectedAuthVariants}
         >
+          <SClose
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleClose}
+          >
+            <img src={closeIconSrc} alt="close" />
+          </SClose>
             {selectedAuth === 'register' ? <SignUp /> : <SignIn />}
         </SSelectedAuth>
         )}

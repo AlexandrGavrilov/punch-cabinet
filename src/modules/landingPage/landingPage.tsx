@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const LandingPage = () => <div>Landing</div>;
+export const LandingPage = () => <div>Main</div>;
