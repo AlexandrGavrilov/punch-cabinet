@@ -9,9 +9,6 @@ export const SInput = styled(Input)`
   position: relative;
   border-radius: 10px;
 
-  &&&&&&&:focus {
-    border-color: #ff6767;
-  }
   
   ${applyMedia(
     'screen',
