@@ -68,6 +68,11 @@ export const SButton = styled(Button)`
   width: 280px;
   height: 50px;
   border-radius: 10px;
+  
+  &&&&&&&&&&&&:disabled {
+    ${btnStyles};
+    filter: grayscale(0.8);
+  }
 
   ${btnStyles}
   

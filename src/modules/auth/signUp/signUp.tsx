@@ -29,6 +29,12 @@ const PureSignUp: FC<ISignUpProps> = () => {
     register(form);
   };
 
+  const handleEmailChange = () => {
+    if (isVerified || isCodeSent) {
+      useAuthStore.setState({ isCodeSent: false, isVerified: false });
+      form.setFieldsValue({ verify: '' });
+    }
+  };
   const handleChangeRegistrationVariant = (variant: 'email' | 'phone') => () => {
     setRegistrationVariant(variant);
   };
@@ -104,6 +110,7 @@ const PureSignUp: FC<ISignUpProps> = () => {
             {registrationVariant === 'email' ? (
               <SInput
                 placeholder={t('email')}
+                onChange={handleEmailChange}
                 suffix={(
                   <SSuffixButton
                     disabled={isCodeSent}
@@ -121,15 +128,11 @@ const PureSignUp: FC<ISignUpProps> = () => {
           <Form.Item
             label={t('enter_code')}
             name="verify"
-            rules={[{
-              min: 9,
-              max: 9,
-              message: t('validation_error_confirmation_code'),
-            },
-            {
-              required: true,
-              message: t('validation_error_required'),
-            }]}
+            rules={[
+              {
+                required: true,
+                message: t('validation_error_required'),
+              }]}
           >
             <SInput
               disabled={isVerified || !isCodeSent}
@@ -199,7 +202,7 @@ const PureSignUp: FC<ISignUpProps> = () => {
 
         <motion.div variants={authFormItemVariants}>
           <Form.Item>
-            <SButton htmlType="submit">{t('apply_registration')}</SButton>
+            <SButton disabled={!isVerified} htmlType="submit">{t('apply_registration')}</SButton>
           </Form.Item>
         </motion.div>
       </SForm>
