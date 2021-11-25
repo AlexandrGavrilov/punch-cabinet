@@ -54,8 +54,13 @@ export const Header: FC<IHeaderProps> = () => {
       </SMenu>
       <SContentWrapper>
         {width < media.tablet && logo}
-        {isAuth ? <UserProfile /> : <Auth />}
-        <WalletConnect />
+        {isAuth ? (
+          <>
+            <UserProfile />
+            {' '}
+            <WalletConnect />
+          </>
+        ) : <Auth />}
         <LanguageSwitcher />
       </SContentWrapper>
     </SHeader>

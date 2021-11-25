@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { Button } from 'antd';
+import { applyMedia } from 'utils/media';
 
 export const btnStyles = css`
   display: flex;
@@ -21,4 +22,10 @@ export const SButton = styled(Button)`
   :focus {
     ${btnStyles}
   }
+
+  ${applyMedia('tablet', css`
+    font-size: 12px;
+    margin: 0 5px;
+    height: 24px;
+  `)}
 `;

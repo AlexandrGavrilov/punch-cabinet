@@ -23,6 +23,11 @@ export const SAuthElement = styled(Button)`
   &:focus {
     ${btnStyles};
   }
+  ${applyMedia('tablet', css`
+    font-size: 12px;
+    margin: 0 5px;
+    height: 24px;
+  `)}
 `;
 
 export const SAuthWrapper = styled(motion.div)`
@@ -44,6 +49,12 @@ export const SSelectedAuth = styled(motion.div)`
   display: flex;
   flex-direction: column;
   background: #e7caca;
+  ${applyMedia(
+    'small-screen',
+    css`
+      padding: 40px 15px;
+    `,
+  )}
 `;
 
 export const SClose = styled(motion.button)`

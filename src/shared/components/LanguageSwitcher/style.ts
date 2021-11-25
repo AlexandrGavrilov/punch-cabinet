@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import { Select } from 'antd';
 
+import { applyMedia } from 'utils/media';
+
 export const SSelect: typeof Select = styled(Select)`
 
   &&& .ant-select-selector {
@@ -13,6 +15,11 @@ export const SSelect: typeof Select = styled(Select)`
     &:focus {
       border: none;
     }
+
+    ${applyMedia('tablet', css`
+      font-size: 12px;
+      height: 26px;
+  `)}
   }
 
 `;

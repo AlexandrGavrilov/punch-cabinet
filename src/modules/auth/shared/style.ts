@@ -23,6 +23,12 @@ export const SInput = styled(Input)`
       width: 300px;
     `,
   )}
+  ${applyMedia(
+    'tablet',
+    css`
+      width: auto;
+    `,
+  )}
 `;
 
 export const SSuffixButton = styled(Button)`
@@ -53,6 +59,15 @@ export const SSuffixButton = styled(Button)`
   &:focus {
     ${btnStyles}
   }
+
+  ${applyMedia(
+    'small-screen',
+    css`
+      font-size: 12px;
+      width: 88px;
+      padding: 0;
+    `,
+  )}
 `;
 
 export const SForgotPasswordButton = styled(Button)`
