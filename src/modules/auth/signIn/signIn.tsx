@@ -6,21 +6,27 @@ import { useTranslation } from 'shared/utils/translation';
 
 import { useAuthStore } from 'stores/auth';
 
-import { SInput, SButton } from '../shared/style';
+import {
+  SInput, SButton, SForgotPasswordButton, SPasswordWrapper,
+} from '../shared/style';
 import { authFormItemVariants } from '../shared/animations';
 
 import { SForm } from './style';
 import { ISignInProps } from './types';
 
-const PureSignIn: FC<ISignInProps> = () => {
+const PureSignIn: FC<ISignInProps> = ({ handleClose }) => {
   const [form] = Form.useForm();
   const { t } = useTranslation();
 
   const { login } = useAuthStore();
-  const handleSubmit = (form: any) => {
-    login(form);
+  const handleSubmit = async (form: any) => {
+    await login(form);
+    handleClose();
   };
 
+  const openResetPassword = () => {
+    useAuthStore.setState({ isResetOpen: true });
+  };
   return (
     <Form layout="vertical" form={form} onFinish={handleSubmit}>
       <SForm>
@@ -67,6 +73,10 @@ const PureSignIn: FC<ISignInProps> = () => {
           <Form.Item>
             <SButton htmlType="submit">{t('enter_to_cabinet')}</SButton>
           </Form.Item>
+        </motion.div>
+
+        <motion.div variants={authFormItemVariants}>
+          <SForgotPasswordButton onClick={openResetPassword}>{t('forgot_password')}</SForgotPasswordButton>
         </motion.div>
       </SForm>
     </Form>

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { Button, Input } from 'antd';
 
 import { applyMedia } from 'utils/media';
+import { btnStyles } from '../../../shared/styles';
 
 export const SInput = styled(Input)`
   width: 480px;
@@ -22,16 +23,6 @@ export const SInput = styled(Input)`
       width: 300px;
     `,
   )}
-`;
-
-const btnStyles = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ff6767;
-  border: 1px solid #ff6767;
-  
-  color: #fff;
 `;
 
 export const SSuffixButton = styled(Button)`
@@ -61,6 +52,29 @@ export const SSuffixButton = styled(Button)`
 
   &:focus {
     ${btnStyles}
+  }
+`;
+
+export const SForgotPasswordButton = styled(Button)`
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: #fff;
+  border-bottom: 1px dashed #ff6767;
+  opacity: 0.8;
+  :hover {
+    border-bottom: 1px dashed #ff6767;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0);
+    color: #ff6767;
+  }
+;
+
+`;
+export const SPasswordWrapper = styled.div`
+  position: relative;
+  
+  .ant-form-item-control-input-content, .ant-form-item-control-input, .ant-col.ant-form-item-control, .ant-row.ant-form-item {
+    overflow: visible;
   }
 `;
 

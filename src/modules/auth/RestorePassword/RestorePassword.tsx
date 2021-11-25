@@ -1,79 +1,42 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form } from 'antd';
-
 import { motion } from 'framer-motion';
-
-import { useTranslation } from 'shared/utils/translation';
-
+import { useTranslation } from 'react-i18next';
 import { useAuthStore } from 'stores/auth';
-
-import {
-  SButton, SInput, SSuffixButton,
-} from '../shared/style';
-
-import { SForm } from './style';
-import { ISignUpProps } from './types';
 import { authFormItemVariants } from '../shared/animations';
-import { PhoneNumberInput } from './PhoneNumberInput';
+import { SButton, SInput, SSuffixButton } from '../shared/style';
+import { PhoneNumberInput } from '../signUp/PhoneNumberInput';
+import { SForm } from '../signUp/style';
 
-const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
-  const [registrationVariant, setRegistrationVariant] = useState<'email' | 'phone'>('email');
-  const [form] = Form.useForm();
-
+export const RestorePassword = () => {
   const { t } = useTranslation();
 
+  const [registrationVariant, setRegistrationVariant] = useState<'email' | 'phone'>('email');
+
+  const [form] = Form.useForm();
+
   const {
-    register, verify, verifyConfirm, isVerified, isCodeSent,
+    isResetPasswordVerified, isResetPasswordCodeSent, verifyReset, verifyResetConfirm, resetPassword,
   } = useAuthStore();
-
-  const handleSubmit = async (form: any) => {
-    await register(form);
-    handleClose();
-  };
-
-  const handleEmailChange = () => {
-    if (isVerified || isCodeSent) {
-      useAuthStore.setState({ isCodeSent: false, isVerified: false });
-      form.setFieldsValue({ verify: '' });
-    }
-  };
-  const handleChangeRegistrationVariant = (variant: 'email' | 'phone') => () => {
-    setRegistrationVariant(variant);
-  };
 
   const handleVerify = async () => {
     const email = form.getFieldValue('email');
-    verify(email);
+    verifyReset(email);
   };
-
-  useEffect(() => () => {
-    useAuthStore.setState({ isCodeSent: false });
-  }, []);
 
   const handleVerifyConfirm = () => {
     const code = form.getFieldValue('verify');
     const email = form.getFieldValue('email');
-    verifyConfirm(code, email);
+    verifyResetConfirm(code, email);
   };
 
+  const handleRestore = (form: any) => {
+    resetPassword(form);
+  };
+  const l = 1;
   return (
-    <Form layout="vertical" form={form} onFinish={handleSubmit}>
+    <Form layout="vertical" form={form} onFinish={handleRestore}>
       <SForm>
-        <motion.div variants={authFormItemVariants}>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: t('validation_error_required'),
-              },
-            ]}
-            label={t('enter_name')}
-            name="name"
-          >
-            <SInput placeholder={t('email')} />
-          </Form.Item>
-        </motion.div>
-
         <motion.div variants={authFormItemVariants}>
           <Form.Item
             rules={[
@@ -87,45 +50,45 @@ const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
               },
             ]}
             label={(t('enter_email')
-              // <SRegistrationSelection>
-              //   <SLabelButton
-              //     isActive={registrationVariant === 'email'}
-              //     onClick={handleChangeRegistrationVariant('email')}
-              //   >
-              //     {t('enter_email')}
-              //   </SLabelButton>
-              //   <SOr>
-              //     -
-              //     {`  ${t('or')}  `}
-              //     -
-              //   </SOr>
-              //   <SLabelButton
-              //     isActive={registrationVariant === 'phone'}
-              //     onClick={handleChangeRegistrationVariant('phone')}
-              //   >
-              //     {t('enter_phone')}
-              //   </SLabelButton>
-              // </SRegistrationSelection>
-            )}
+                    // <SRegistrationSelection>
+                    //   <SLabelButton
+                    //     isActive={registrationVariant === 'email'}
+                    //     onClick={handleChangeRegistrationVariant('email')}
+                    //   >
+                    //     {t('enter_email')}
+                    //   </SLabelButton>
+                    //   <SOr>
+                    //     -
+                    //     {`  ${t('or')}  `}
+                    //     -
+                    //   </SOr>
+                    //   <SLabelButton
+                    //     isActive={registrationVariant === 'phone'}
+                    //     onClick={handleChangeRegistrationVariant('phone')}
+                    //   >
+                    //     {t('enter_phone')}
+                    //   </SLabelButton>
+                    // </SRegistrationSelection>
+                )}
             name={registrationVariant}
           >
             {registrationVariant === 'email' ? (
               <SInput
                 placeholder={t('email')}
-                onChange={handleEmailChange}
+                      // onChange={handleEmailChange}
                 suffix={(
                   <SSuffixButton
-                    disabled={isCodeSent}
                     type="primary"
                     onClick={handleVerify}
                   >
                     {t('get_code')}
                   </SSuffixButton>
-              )}
+                      )}
               />
             ) : <PhoneNumberInput />}
           </Form.Item>
         </motion.div>
+
         <motion.div variants={authFormItemVariants}>
           <Form.Item
             label={t('enter_code')}
@@ -137,10 +100,10 @@ const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
               }]}
           >
             <SInput
-              disabled={isVerified || !isCodeSent}
+              disabled={!isResetPasswordCodeSent}
               suffix={(
                 <SSuffixButton
-                  disabled={isVerified || !isCodeSent}
+                  disabled={!isResetPasswordCodeSent}
                   type="primary"
                   onClick={handleVerifyConfirm}
                 >
@@ -152,7 +115,6 @@ const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
             />
           </Form.Item>
         </motion.div>
-
         <motion.div variants={authFormItemVariants}>
           <Form.Item
             rules={[
@@ -172,7 +134,6 @@ const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
             <SInput type="password" placeholder={t('password')} />
           </Form.Item>
         </motion.div>
-
         <motion.div variants={authFormItemVariants}>
           <Form.Item
             rules={[
@@ -204,12 +165,10 @@ const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
 
         <motion.div variants={authFormItemVariants}>
           <Form.Item>
-            <SButton disabled={!isVerified} htmlType="submit">{t('apply_registration')}</SButton>
+            <SButton disabled={!isResetPasswordVerified} htmlType="submit">{t('forgot_password')}</SButton>
           </Form.Item>
         </motion.div>
       </SForm>
     </Form>
   );
 };
-
-export const SignUp = PureSignUp;

@@ -1,1 +1,3 @@
-export interface ISignInProps {}
+export interface ISignInProps {
+    handleClose(): void;
+}

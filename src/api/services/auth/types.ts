@@ -10,3 +10,8 @@ export interface IRegisterDTO {
     number?: string;
     password: string;
 }
+
+export interface IResetDTO {
+    email: string;
+    password: string;
+}

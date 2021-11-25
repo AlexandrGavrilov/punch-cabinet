@@ -13,7 +13,7 @@ export const SAuthElement = styled(Button)`
   margin: 0 15px;
   line-height: 1.5715;
   border-radius: 4px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   
   ${btnStyles};
@@ -23,11 +23,6 @@ export const SAuthElement = styled(Button)`
   &:focus {
     ${btnStyles};
   }
-  ${applyMedia('tablet', css`
-    font-size: 12px;
-    
-    height: 24px;
-  `)}
 `;
 
 export const SAuthWrapper = styled(motion.div)`
@@ -39,14 +34,16 @@ export const SAuthWrapper = styled(motion.div)`
 `;
 
 export const SSelectedAuth = styled(motion.div)`
-  position: absolute;
+  position: fixed;
+  z-index: 2;
+  max-width: 90vw;
   padding: 30px 60px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
-  background: #dbc0c0;
+  background: #e7caca;
 `;
 
 export const SClose = styled(motion.button)`
@@ -63,7 +60,9 @@ export const SClose = styled(motion.button)`
 `;
 
 export const SBackground = styled(motion.div)`
-  position: absolute;
+  position: fixed;
+  overflow: hidden;
+  z-index: 2;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.3);
