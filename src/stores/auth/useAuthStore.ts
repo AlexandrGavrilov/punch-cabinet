@@ -62,7 +62,7 @@ export const useAuthStore = create<IAuthStore>((set) => {
         message.success(i18next.t('verify_code_sent'));
       } catch (e) {
         if (e.response.status === 409) {
-          message.error(i18next.t('email_already_exist'));
+          message.error(i18next.t('user_not_defined'));
         }
         console.error(e.response, 'WWW');
       }
