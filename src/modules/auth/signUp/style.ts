@@ -5,7 +5,6 @@ export const SForm = styled.div`
   flex-direction: column;
   align-items: center;
 
-
   .ant-input-group-addon {
     padding: 0;
   }

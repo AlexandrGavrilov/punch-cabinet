@@ -14,6 +14,7 @@ import i18n from 'shared/utils/translation';
 
 import 'antd/dist/antd.css';
 import { ExternalProvider, JsonRpcFetchFunc } from '@ethersproject/providers/src.ts/web3-provider';
+import { GlobalStyles } from './style';
 
 const POLLING_INTERVAL = 12000;
 const getLibrary = (provider: ExternalProvider | JsonRpcFetchFunc) => {
@@ -28,6 +29,7 @@ function App() {
       <Web3ReactProvider getLibrary={getLibrary}>
         <I18nextProvider i18n={i18n}>
           <BrowserRouter>
+            <GlobalStyles />
             <Switch>
               {renderViewRoutes()}
               <Route path="*">

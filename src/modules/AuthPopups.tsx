@@ -11,7 +11,6 @@ import { SignIn, SignUp } from './auth';
 
 const SWrapper = styled.div`
   * {
-    overflow: hidden;
   }
 `;
 

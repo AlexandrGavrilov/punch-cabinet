@@ -55,6 +55,7 @@ module.exports = {
     'react/jsx-filename-extension': 'off',
     'no-nested-ternary': 'off',
     'max-len': 'off',
+    'no-useless-escape': 'off',
     'prefer-const': [
       'warn',
       {

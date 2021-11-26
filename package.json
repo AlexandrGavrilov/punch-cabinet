@@ -26,6 +26,7 @@
     "ethers": "^5.5.1",
     "framer-motion": "^5.2.0",
     "i18next": "^20.3.5",
+    "moralis": "^0.0.135",
     "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-app-rewired": "^2.1.8",

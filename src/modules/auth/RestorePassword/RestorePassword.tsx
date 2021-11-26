@@ -7,6 +7,7 @@ import { authFormItemVariants } from '../shared/animations';
 import { SButton, SInput, SSuffixButton } from '../shared/style';
 import { PhoneNumberInput } from '../signUp/PhoneNumberInput';
 import { SForm } from '../signUp/style';
+import { PASS_REG_EXP } from '../../../shared/constants';
 
 export const RestorePassword = () => {
   const { t } = useTranslation();
@@ -124,8 +125,18 @@ export const RestorePassword = () => {
               },
               {
                 min: 8,
-                max: 16,
-                message: t('validation_error_password'),
+                message: t('validation_error_password_length'),
+              },
+              {
+                validator(_: any, value: string) {
+                  if (!value || value.length < 8) {
+                    return Promise.resolve();
+                  }
+                  if (PASS_REG_EXP.test(value)) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error(t('validation_error_password')));
+                },
               },
             ]}
             label={t('enter_password')}

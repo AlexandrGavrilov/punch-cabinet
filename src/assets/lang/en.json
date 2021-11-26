@@ -2,6 +2,9 @@
   "sign-up": "Registration",
   "sign-in": "Authorization",
   "welcome": "Welcome",
+  "account": "Account",
+  "balance": "Balance",
+  "personal_information": "Personal information",
   "or": "or",
   "user_profile": "Profile",
   "main_page_body_title": "GET PARTNER STATUS",
@@ -33,6 +36,7 @@
   "enter_to_cabinet": "Enter to cabinet",
   "validation_error_required": "Field required",
   "validation_error_email": "Enter correct email address",
-  "validation_error_password": "Password must be 8 to 16 characters long",
+  "validation_error_password": "Password must contain at least one letter, one number and one special character",
+  "validation_error_password_length": "Password must be more then 8 characters long",
   "validation_error_confirm_password": "Passwords must match"
 }

@@ -15,6 +15,7 @@ import { SForm } from './style';
 import { ISignUpProps } from './types';
 import { authFormItemVariants } from '../shared/animations';
 import { PhoneNumberInput } from './PhoneNumberInput';
+import { PASS_REG_EXP } from '../../../shared/constants';
 
 const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
   const [registrationVariant, setRegistrationVariant] = useState<'email' | 'phone'>('email');
@@ -162,8 +163,18 @@ const PureSignUp: FC<ISignUpProps> = ({ handleClose }) => {
               },
               {
                 min: 8,
-                max: 16,
-                message: t('validation_error_password'),
+                message: t('validation_error_password_length'),
+              },
+              {
+                validator(_: any, value: string) {
+                  if (!value || value.length < 8) {
+                    return Promise.resolve();
+                  }
+                  if (PASS_REG_EXP.test(value)) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject(new Error(t('validation_error_password')));
+                },
               },
             ]}
             label={t('enter_password')}

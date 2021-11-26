@@ -9,7 +9,6 @@ export const SInput = styled(Input)`
   height: 45px;
   position: relative;
   border-radius: 10px;
-
   
   ${applyMedia(
     'screen',
@@ -21,12 +20,6 @@ export const SInput = styled(Input)`
     'small-screen',
     css`
       width: 300px;
-    `,
-  )}
-  ${applyMedia(
-    'tablet',
-    css`
-      width: auto;
     `,
   )}
 `;

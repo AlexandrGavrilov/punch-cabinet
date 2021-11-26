@@ -55,6 +55,12 @@ export const SSelectedAuth = styled(motion.div)`
       padding: 40px 15px;
     `,
   )}
+  ${applyMedia(
+    'tablet',
+    css`
+      padding: 40px 15px;
+    `,
+  )}
 `;
 
 export const SClose = styled(motion.button)`

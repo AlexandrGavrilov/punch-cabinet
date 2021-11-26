@@ -8,6 +8,7 @@ import { infuraId } from 'config/wallet';
 import { useWalletStore } from 'stores/wallet';
 
 import { SButton } from 'shared/styles';
+import Moralis from 'moralis';
 
 export const WalletConnect = () => {
   const { t } = useTranslation();
@@ -15,10 +16,21 @@ export const WalletConnect = () => {
     activate, account, connector,
   } = useWeb3React();
 
-  const { setBalance, setIsOpen, setAccount } = useWalletStore();
+  const {
+    setBalance, setIsOpen, setAccount, setCollection,
+  } = useWalletStore();
 
   useEffect(() => {
     if (account) {
+      // fetch(`https://api.opensea.io/api/v1/assets?owner=${account}`).then(async (res) => console.log(await res.json(), 'OCEAN'));
+      // (async () => {
+      //   // @ts-ignore
+      //   await Moralis.start();
+      //   // @ts-ignore
+      //   const userEthNFTs = await Moralis.Web3API.account.getNFTs(account);
+      //   console.log(userEthNFTs, 'WWWWWWWWWW');
+      // })();
+      setCollection(account);
       setBalance(connector);
       setAccount(account);
     }
