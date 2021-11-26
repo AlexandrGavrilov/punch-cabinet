@@ -13,13 +13,18 @@ import { useAuthStore } from 'stores/auth';
 
 import logoUrl from 'assets/img/logo.png';
 
+import { useWindowSize } from 'utils/useWindowSize';
+import { media } from 'utils/media';
+
+import { WalletConnect } from 'modules/WalletConnect';
+
+import { SButton } from 'shared/styles';
+import { useUserStore } from 'stores/user';
+
+import { IHeaderProps } from './types';
 import {
   SHeader, SMenu, SContentWrapper, SLogoWrapper, SLogo, STitle,
 } from './style';
-import { IHeaderProps } from './types';
-import { useWindowSize } from '../../utils/useWindowSize';
-import { media } from '../../utils/media';
-import { WalletConnect } from '../../modules/WalletConnect/WalletConnect';
 
 export const Header: FC<IHeaderProps> = () => {
   const navItems = [AppModules.LADING, AppModules.ROAD_MAP];
@@ -29,6 +34,12 @@ export const Header: FC<IHeaderProps> = () => {
   const { isAuth } = useAuthStore();
 
   const { width } = useWindowSize();
+
+  const { setIsOpen } = useUserStore();
+
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
 
   const logo = (
     <SLogoWrapper>
@@ -56,7 +67,9 @@ export const Header: FC<IHeaderProps> = () => {
         {width < media.tablet && logo}
         {isAuth ? (
           <>
-            <UserProfile />
+            <SButton size="large" onClick={handleOpen}>
+              {t('user_profile')}
+            </SButton>
             {' '}
             <WalletConnect />
           </>

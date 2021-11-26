@@ -8,6 +8,7 @@ import { AuthPopups } from 'modules/AuthPopups';
 import { Wallet } from 'modules/Wallet';
 import { SWrapper, SComponentWrapper } from './style';
 import { Header } from './Header';
+import { UserProfile } from '../../modules/UserProfile';
 
 export const App: FC<IRouteComponentProps> = ({
   modules,
@@ -31,6 +32,7 @@ export const App: FC<IRouteComponentProps> = ({
                   <Component {...rest} />
                 </SComponentWrapper>
                 <Wallet />
+                <UserProfile />
               </Suspense>
             </Route>
           ))}
@@ -39,10 +41,12 @@ export const App: FC<IRouteComponentProps> = ({
             <Route {...restDefaultModule} path={`${prefix}${defaultModule.path}`}>
               <Suspense fallback={<Spin />}>
                 <Header />
+                <AuthPopups />
                 <SComponentWrapper>
                   <DefaultModule {...restDefaultModule} />
                 </SComponentWrapper>
                 <Wallet />
+                <UserProfile />
               </Suspense>
             </Route>
           )}

@@ -5,5 +5,7 @@ export interface IUser {
 
 export interface IUserStore {
     user: IUser,
+    isOpen: boolean,
+    setIsOpen(isOpen: boolean): void,
     setUser(user: IUser): void
 }
